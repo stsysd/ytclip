@@ -9,7 +9,6 @@ const template = `
   <title>{{title}}</title>
   <meta name="twitter:card" content="player">
   <meta name="twitter:title" content="{{title}}">
-  <meta name="twitter:description" content="{{desc}}">
   <meta name="twitter:image" content="https://i.ytimg.com/vi/{{videoId}}/maxresdefault.jpg">
   <meta name="twitter:player" content="https://www.youtube.com/embed/{{videoId}}?start={{start}}&end={{end}}">
   <meta name="twitter:player:width" content="560">
@@ -52,10 +51,9 @@ export async function handler(event) {
     v: videoId,
     r: range,
     t: title,
-    d: desc,
   } = q;
   const [, start, end] = mat;
-  const data = { videoId, range, title, desc, start, end };
+  const data = { videoId, range, title, start, end };
   return {
     statusCode: 200,
     body: Mustache.render(template, data)

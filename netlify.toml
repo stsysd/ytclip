@@ -11,4 +11,3 @@ status = 200
   v = ":videoId"
   r = ":range"
   t = ":title"
-  d = ":description"
