@@ -4,6 +4,6 @@ publish = "dist"
 functions = "api"
 
 [[redirects]]
-from = "/clip"
-to = "/.netlify/functions/clip v=:videoId r=:range t=:title d=:description"
+from = "/clip v=:videoId r=:range t=:title d=:description"
+to = "/.netlify/functions/clip"
 status = 200
