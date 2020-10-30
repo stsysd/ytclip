@@ -36,7 +36,7 @@ export async function handler(event) {
     if (!(key in q)) {
     return {
       statusCode: 400,
-      body: `Invalid Parameters: no-${key}`
+      body: `Invalid Parameters: ${JSON.stringify(q, null, 4)}`
     };
     }
   }
@@ -45,7 +45,7 @@ export async function handler(event) {
   if (mat == null) {
     return {
       statusCode: 400,
-      body: "Invalid Parameters: range"
+      body: `Invalid Parameters: ${JSON.stringify(q, null, 4)}`
     };
   }
   const [, start, end] = mat;
