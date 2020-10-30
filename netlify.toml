@@ -6,7 +6,7 @@ functions = "api"
 [[redirects]]
 from = "/clip/:videoId/:range t=:title d=:description"
 to = "/.netlify/functions/clip"
-status = 200
+status = 301
   [query]
   videoId = ":videoId"
   range = ":range"
