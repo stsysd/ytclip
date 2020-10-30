@@ -1,0 +1,14 @@
+[build]
+command = "npm install && npm run netlify:build"
+publish = "dist"
+functions = "api"
+
+[[redirects]]
+from = "/clip/:videoId/:range t=:title d=:description"
+to = "/.netlify/functions/clip"
+status = 200
+  [query]
+  videoId = ":videoId"
+  range = ":range"
+  title = ":title"
+  description = ":description"
