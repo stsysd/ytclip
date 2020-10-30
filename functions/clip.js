@@ -31,7 +31,7 @@ export async function handler(event) {
     };
   }
   const q = event.queryStringParameters;
-  for (const key of ['t', 'd', 'v', 'r']) {
+  for (const key of ['t', 'v', 'r']) {
     if (!(key in q)) {
     return {
       statusCode: 400,
