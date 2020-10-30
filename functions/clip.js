@@ -32,22 +32,20 @@ export async function handler(event) {
     };
   }
   const q = event.queryStringParameters;
-  let good = true;
   for (const key of ['title', 'description', 'videoId', 'range']) {
-    good = good && key in q;
-  }
-  if (!good) {
+    if (!(key in q)) {
     return {
       statusCode: 400,
-      body: "Invalid Parameters"
+      body: `Invalid Parameters: no-${key}`
     };
+    }
   }
   const pat = /^(\d+)-(\d+)$/;
   const mat = pat.exec(q.range);
   if (mat == null) {
     return {
       statusCode: 400,
-      body: "Invalid Parameters"
+      body: "Invalid Parameters: range"
     };
   }
   const [, start, end] = mat;
