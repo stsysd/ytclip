@@ -53,7 +53,6 @@ function waitForRendering() {
   const done = ref(false);
   const fn = () =>
     setTimeout(() => {
-      console.log(el.value?.clientWidth);
       if (el.value?.clientWidth) {
         done.value = true;
       } else {
