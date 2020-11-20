@@ -1,12 +1,16 @@
 <template>
-  <div>
+  <div class="x-rows">
     <div class="youtube">
       <iframe
         :src="embedded"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       ></iframe>
     </div>
-    <tweet-button :text="title" :url="sharedUrl" />
+    <div class="x-cols">
+      <tweet-button :text="title" :url="sharedUrl" />
+      <input class="x-grow" type="text" readonly :value="sharedUrl" />
+      <button class="pure-button monotone" @click="emit('back')">Back</button>
+    </div>
   </div>
 </template>
 
@@ -40,7 +44,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const sharedUrl = computed(
       () =>
         props.prefix +
@@ -57,7 +61,16 @@ export default defineComponent({
         `?start=${props.clipStart}&end=${props.clipEnd}`
     );
 
-    return { sharedUrl, isUrlOver, embedded };
+    return { emit, sharedUrl, isUrlOver, embedded };
   }
 });
 </script>
+
+<style scoped>
+.x-cols {
+  width: 80%;
+}
+.pure-button {
+  padding: 0.2em 0.5em;
+}
+</style>

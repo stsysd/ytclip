@@ -23,9 +23,7 @@ export default defineComponent({
   emits: ["submit"],
   components: { Icon },
   setup(_, { emit }) {
-    const link = ref<string>(
-      "https://www.youtube.com/watch?v=9kQ2GtvDV3s&t=189s"
-    );
+    const link = ref<string>("");
     const videoId = computed(() => {
       try {
         const url = new URL(link.value);

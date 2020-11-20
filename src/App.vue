@@ -6,6 +6,7 @@
     :clipStart="clip.start"
     :clipEnd="clip.end"
     :title="clip.title"
+    @back="onBack"
   />
   <editor v-else-if="videoId" :videoId="videoId" @clip="onClip" />
   <entry v-else @submit="onSubmit" />
@@ -38,6 +39,9 @@ export default defineComponent({
       },
       onSubmit(v: string) {
         videoId.value = v;
+      },
+      onBack() {
+        clip.value = void 0;
       }
     };
   }
