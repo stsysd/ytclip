@@ -1,43 +1,37 @@
 <template>
-  <div class="x-cols">
+  <div class="x-cols dense monotone">
     <button class="pure-button monotone" @click="emit('toggle')">
       <icon v-if="playing" icon-name="pause" />
       <icon v-else icon-name="play" />
     </button>
-    <div class="pure-button-group" role="group">
-      <button class="pure-button monotone" @click="emit('step-backward')">
-        <icon icon-name="step-backward" />
-      </button>
-      <button class="pure-button monotone" @click="emit('step-forward')">
-        <icon icon-name="step-forward" />
-      </button>
-    </div>
-    <div class="pure-button-group" role="group">
-      <button class="pure-button monotone" @click="emit('seek-to-clip-start')">
-        <icon icon-name="backward" />
-      </button>
-      <button class="pure-button monotone" @click="emit('seek-to-clip-end')">
-        <icon icon-name="forward" />
-      </button>
-    </div>
-    <div class="x-grow"><slot /></div>
-    <div class="pure-button-group" role="group">
-      <button class="pure-button monotone" @click="emit('set-clip-start')">
-        <icon icon-name="arrow-left" />
-      </button>
-      <button class="pure-button monotone" @click="emit('set-clip-end')">
-        <icon icon-name="arrow-right" />
-      </button>
-    </div>
+    <button class="pure-button monotone" @click="emit('seek-to-clip-start')">
+      <icon icon-name="backward" />
+    </button>
+    <button class="pure-button monotone" @click="emit('seek-to-clip-end')">
+      <icon icon-name="forward" />
+    </button>
+    <button class="pure-button monotone" @click="emit('set-clip-start')">
+      <icon icon-name="arrow-left" />
+    </button>
+    <button class="pure-button monotone" @click="emit('set-clip-end')">
+      <icon icon-name="arrow-right" />
+    </button>
+    <div class="x-grow centering"><slot /></div>
+    <scale-slider
+      :style="{ width: '240px' }"
+      :modelValue="scale"
+      @update:modelValue="updateScale"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Icon from "./Icon.vue";
+import ScaleSlider from "./ScaleSlider.vue";
 
 export default defineComponent({
-  components: { Icon },
+  components: { Icon, ScaleSlider },
   props: {
     text: {
       type: String,
@@ -46,17 +40,29 @@ export default defineComponent({
     playing: {
       type: Boolean,
       required: true
+    },
+    scale: {
+      type: Number,
+      required: true
     }
   },
   setup(_, { emit }) {
-    return { emit };
+    return {
+      emit,
+      updateScale(v: number) {
+        emit("update:scale", v);
+      }
+    };
   }
 });
 </script>
 
 <style scoped>
-.x-cols {
-  background-color: var(--shadow-color);
+.x-cols.monotone.dense > * {
+  border-radius: 0;
   color: white;
+}
+.x-cols.monotone.dense > *:not(:last-child) {
+  border-right: solid 1px var(--shadow-color);
 }
 </style>

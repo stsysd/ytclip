@@ -1,5 +1,5 @@
 <template>
-  <span ref="span" :style="style"> </span>
+  <span class="icon" ref="span" :style="style"> </span>
 </template>
 <script lang="ts">
 import { dom, library } from "@fortawesome/fontawesome-svg-core";
@@ -44,7 +44,7 @@ library.add(
 );
 dom.watch();
 
-type IconNames =
+export type IconNames =
   | "volume-up"
   | "volume-down"
   | "search-plus"
@@ -65,15 +65,13 @@ export default defineComponent({
       type: String as PropType<IconNames>,
       required: true
     },
-    size: Number,
-    color: String
+    size: Number
   },
   setup(props) {
     const span = ref<HTMLSpanElement>();
     const classNames = computed(() => ["fas", "fa-fw", `fa-${props.iconName}`]);
     const style = computed(() => ({
-      fontSize: `${props.size || 1}em`,
-      color: props.color || "inherit"
+      fontSize: `${props.size || 1}em`
     }));
     watch(classNames, () => {
       if (span.value == null) return;

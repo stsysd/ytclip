@@ -1,17 +1,21 @@
 <template>
-  <div class="pure-form x-rows">
-    <fieldset class="x-cols">
+  <div class="centering">
+    <div class="x-cols url-input-container">
       <input
-        class="x-grow"
+        class="x-grow url-input"
         type="url"
-        placeholder="YouTube URL"
+        placeholder="YouTube URL to Clip"
         v-model="link"
+        autofocurowss
       />
-      <button class="pure-button primary" @click="enter" :disabled="invalid">
+      <button
+        :class="{ 'pure-button': true, monotone: invalid, primary: !invalid }"
+        @click="enter"
+        :disabled="invalid"
+      >
         <icon icon-name="hand-scissors" />
-        Clip!
       </button>
-    </fieldset>
+    </div>
   </div>
 </template>
 
@@ -54,8 +58,32 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.pure-form > fieldset {
+.centering {
+  margin-top: 80px;
+}
+.url-input-container {
+  overflow: hidden;
+  padding: 0;
+  background-color: white;
+  border-radius: 16px;
+  width: 50%;
   font-size: 120%;
-  width: 80%;
+  border: solid 1px var(--light-shadow-color);
+}
+
+.url-input-container:focus-within {
+  box-shadow: 0 0 2px var(--shadow-color);
+}
+
+.url-input {
+  border: none;
+  outline: none;
+  padding: 0.5em 1em;
+}
+
+.pure-button {
+  font-size: 120%;
+  border-radius: 0;
+  border-left: solid 1px var(--light-shadow-color);
 }
 </style>

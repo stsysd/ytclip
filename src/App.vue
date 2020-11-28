@@ -55,7 +55,6 @@ export default defineComponent({
   --ink-color: #303030;
   --shadow-color: #808080;
   --light-shadow-color: #e0e0e0;
-  background-color: var(--light-shadow-color);
 }
 
 #app {
@@ -63,8 +62,7 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: var(--ink-color);
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .primary {
@@ -107,18 +105,31 @@ export default defineComponent({
 }
 
 .x-rows > *:not(:last-child) {
-  /* margin-bottom: 0.5em; */
+  margin-bottom: 0.5em;
+}
+
+.x-rows.dense {
+  padding: 0;
+}
+.x-rows.dense > *:not(:last-child) {
+  margin-bottom: 0;
 }
 
 .x-cols {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   flex-direction: row;
   padding: 0.5em 1em;
 }
 .x-cols > *:not(:last-child) {
   margin-right: 0.5em;
+}
+.x-cols.dense {
+  padding: 0;
+}
+.x-cols.dense > *:not(:last-child) {
+  margin-right: 0;
 }
 
 .x-grow {

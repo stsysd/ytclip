@@ -1,13 +1,24 @@
 <template>
-  <div class="centering">
-    <div class="x-rows">
+  <div class="editor centering" v-show="ready">
+    <div class="container x-rows dense">
+      <div class="righted">
+        <drawer iconName="volume-up">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            v-model.number="volume"
+            style="width: 100%"
+          />
+        </drawer>
+      </div>
       <div ref="container" class="screen"></div>
+      <divider />
       <controller
-        v-show="ready"
+        v-model:scale="scale"
         :playing="isPlaying"
         @toggle="togglePlaying"
-        @step-backward="stepBackward"
-        @step-forward="stepForward"
         @seek-to-clip-start="seekToClipStart"
         @seek-to-clip-end="seekToClipEnd"
         @set-clip-start="setClipStart"
@@ -15,6 +26,7 @@
       >
         [{{ clipStart }}-{{ clipEnd }}] {{ currentSeconds }}/{{ duration }}
       </controller>
+      <divider />
       <timeline
         v-show="ready"
         :duration="duration"
@@ -24,10 +36,7 @@
         v-model:clipEnd="clipEnd"
         @update:currentTime="onUpdateCurrentTime"
       />
-      <div class="x-cols sliders" v-show="ready">
-        <scale-slider v-model="scale" />
-        <volume-slider v-model="volume" />
-      </div>
+      <divider />
       <div class="x-cols pure-form bottom" :playing="isPlaying">
         <input type="text" v-model="title" style="width: 80%" />
         <button class="pure-button primary" @click="onClip">
@@ -44,17 +53,17 @@ import { defineComponent, ref, computed, watch } from "vue";
 import { usePlayer, PlayerState } from "../utils/usePlayer";
 import Timeline from "./Timeline.vue";
 import Controller from "./Controller.vue";
-import VolumeSlider from "./VolumeSlider.vue";
-import ScaleSlider from "./ScaleSlider.vue";
+import Drawer from "./Drawer.vue";
+import Divider from "./Divider.vue";
 import Icon from "./Icon.vue";
 
 export default defineComponent({
   components: {
     Timeline,
     Controller,
-    VolumeSlider,
-    ScaleSlider,
-    Icon
+    Drawer,
+    Icon,
+    Divider
   },
   props: {
     videoId: {
@@ -146,14 +155,6 @@ export default defineComponent({
           Math.max(clipStart.value, currentTime.value)
         );
       },
-      stepBackward() {
-        ctrl.seek(currentTime.value - 1, true);
-      },
-      stepForward() {
-        // currentTime.value += 1;
-        ctrl.seek(currentTime.value + 1, true);
-      },
-
       seekToClipStart() {
         ctrl.seek(clipStart.value, true);
       },
@@ -161,8 +162,6 @@ export default defineComponent({
         ctrl.seek(clipEnd.value, true);
       },
       onUpdateCurrentTime(t: number) {
-        // currentTime.value = t;
-        // ctrl.seek(currentTime.value, true);
         ctrl.seek(t, true);
       },
       onClip() {
@@ -180,26 +179,34 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.centering > .x-rows {
+.righted {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: end;
+  padding: 1em;
+}
+
+.editor > .container {
+  position: relative;
   width: 80%;
   background-color: var(--ink-color);
   padding: 0;
-  margin-bottom: 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-top: solid 1px var(--shadow-color);
+  border-bottom: solid 1px var(--shadow-color);
+  box-sizing: border-box;
 }
 
-.centering > .x-rows > * {
+.editor > .container > * {
   box-sizing: border-box;
   width: 100%;
 }
 
 .screen {
   box-sizing: border-box;
-  height: 360px;
   overflow: hidden;
-}
-.sliders {
-  background-color: var(--shadow-color);
-  padding: 0;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 </style>

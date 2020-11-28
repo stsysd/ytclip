@@ -1,6 +1,6 @@
 <template>
-  <div class="x-cols pure-form x-grow">
-    <button class="pure-button transparent" @click="volumeDown">
+  <div class="x-cols pure-form">
+    <button class="pure-button monotone" @click="volumeDown">
       <icon icon-name="search-minus" color="white" />
     </button>
     <input
@@ -11,7 +11,7 @@
       :max="internal_max"
       :step="step"
     />
-    <button class="pure-button transparent" @click="volumeUp">
+    <button class="pure-button monotone" @click="volumeUp">
       <icon icon-name="search-plus" color="white" />
     </button>
   </div>

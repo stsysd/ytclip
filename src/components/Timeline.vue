@@ -11,7 +11,7 @@
     </teleport>
     <ruler
       v-if="ready"
-      color="var(--ink-color)"
+      color="white"
       :length="timelineWidth"
       :unit="ruler.unit"
       :labelRenderer="ruler.labeler"
@@ -194,8 +194,9 @@ export default defineComponent({
 <style scoped>
 .timeline-container {
   width: 100%;
+  background-color: var(--ink-color);
+  color: white;
   overflow-x: scroll;
-  background-color: var(--light-shadow-color);
 }
 
 .timeline-container::-webkit-scrollbar {
@@ -203,7 +204,7 @@ export default defineComponent({
   border-radius: 4px;
 }
 .timeline-container::-webkit-scrollbar-track-piece {
-  background-color: var(--light-shadow-color);
+  background-color: white;
 }
 .timeline-container::-webkit-scrollbar-thumb {
   background-color: var(--ink-color);
@@ -232,8 +233,8 @@ export default defineComponent({
 .clip-range {
   position: absolute;
   border-radius: 2px;
-  top: 8px;
-  bottom: 8px;
+  top: 12px;
+  bottom: 4px;
 }
 
 .video-range {
