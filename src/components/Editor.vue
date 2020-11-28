@@ -183,7 +183,7 @@ export default defineComponent({
   position: absolute;
   top: 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 1em;
 }
 
